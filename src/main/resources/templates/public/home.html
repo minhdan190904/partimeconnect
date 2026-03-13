@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head('Trang chủ - Partime Connect EPU')}"></head>
+<body>
+<div th:replace="~{fragments/public-header :: publicHeader}"></div>
+
+<section class="hero-section">
+    <div class="container">
+        <div class="hero-card">
+            <div class="row align-items-center g-4">
+                <div class="col-lg-7">
+                    <span class="hero-badge">Việc làm part-time cho sinh viên</span>
+                    <h1 class="hero-title">Tìm việc làm thêm phù hợp nhanh hơn cùng <span>Partime Connect EPU</span></h1>
+                    <p class="hero-text">
+                        Kết nối sinh viên với các cửa hàng, quán cafe, siêu thị mini, cửa hàng tiện lợi và các đơn vị đang cần tuyển nhân sự part-time theo giờ, theo ca hoặc lâu dài.
+                    </p>
+
+                    <form class="hero-search" th:action="@{/jobs}" method="get">
+                        <div class="row g-2">
+                            <div class="col-md-5">
+                                <input type="text" class="form-control modern-input" name="keyword" placeholder="Tìm theo tên công việc...">
+                            </div>
+                            <div class="col-md-4">
+                                <select name="jobGroup" class="form-select modern-input">
+                                    <option value="">Tất cả loại việc</option>
+                                    <option value="THEO_GIO">Theo giờ</option>
+                                    <option value="THEO_CA">Theo ca</option>
+                                    <option value="CO_DINH">Cố định</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <button class="btn btn-gradient w-100">
+                                    <i class="bi bi-search me-1"></i> Tìm việc ngay
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <div class="hero-stats">
+                        <div class="hero-stat-item">
+                            <strong th:text="${totalJobs} ?: 0">0</strong>
+                            <span>Việc làm đang mở</span>
+                        </div>
+                        <div class="hero-stat-item">
+                            <strong th:text="${totalEmployers} ?: 0">0</strong>
+                            <span>Đơn vị tuyển dụng</span>
+                        </div>
+                        <div class="hero-stat-item">
+                            <strong>24/7</strong>
+                            <span>Cập nhật liên tục</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-5">
+                    <div class="hero-visual">
+                        <div class="visual-card glass-card">
+                            <div class="icon-circle"><i class="bi bi-clock-history"></i></div>
+                            <h5>Theo giờ</h5>
+                            <p>Phù hợp sinh viên có lịch học linh hoạt</p>
+                        </div>
+                        <div class="visual-card primary-card">
+                            <div class="icon-circle"><i class="bi bi-calendar2-week-fill"></i></div>
+                            <h5>Theo ca</h5>
+                            <p>Dễ chọn ca sáng, chiều, tối theo lịch cá nhân</p>
+                        </div>
+                        <div class="visual-card glass-card">
+                            <div class="icon-circle"><i class="bi bi-briefcase-fill"></i></div>
+                            <h5>Cố định</h5>
+                            <p>Công việc ổn định, phù hợp làm lâu dài</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section-block">
+    <div class="container">
+        <div class="section-header">
+            <div>
+                <span class="section-kicker">Danh mục nổi bật</span>
+                <h2 class="section-title">Công việc theo giờ</h2>
+            </div>
+            <a class="section-link" th:href="@{/jobs(jobGroup='THEO_GIO')}">Xem tất cả</a>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6" th:each="job : ${jobsTheoGio}">
+                <div class="job-card">
+                    <div class="job-card-image-wrap">
+                        <img th:src="${job.imageUrl != null ? job.imageUrl : '/images/default-job.jpg'}" class="job-card-image" alt="">
+                        <span class="job-badge">Theo giờ</span>
+                    </div>
+                    <div class="job-card-body">
+                        <div class="job-company" th:text="${job.employer.name}">Nhà tuyển dụng</div>
+                        <h5 class="job-title" th:text="${job.title}">Tên công việc</h5>
+                        <div class="job-meta">
+                            <span><i class="bi bi-geo-alt"></i> <span th:text="${job.district} + ', ' + ${job.province}">Địa điểm</span></span>
+                            <span><i class="bi bi-cash-stack"></i> <span th:text="${job.salaryAmount} + ' / ' + ${job.salaryUnit}">Lương</span></span>
+                        </div>
+                        <p class="job-desc" th:text="${job.shortDescription}">Mô tả ngắn</p>
+                        <div class="job-card-actions">
+                            <a class="btn btn-soft" th:href="@{'/jobs/' + ${job.id}}">Xem chi tiết</a>
+                            <a class="btn btn-gradient" th:href="@{'/jobs/' + ${job.id} + '/apply'}">Ứng tuyển</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section-block section-alt">
+    <div class="container">
+        <div class="section-header">
+            <div>
+                <span class="section-kicker">Lựa chọn linh hoạt</span>
+                <h2 class="section-title">Công việc theo ca</h2>
+            </div>
+            <a class="section-link" th:href="@{/jobs(jobGroup='THEO_CA')}">Xem tất cả</a>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6" th:each="job : ${jobsTheoCa}">
+                <div class="job-card">
+                    <div class="job-card-image-wrap">
+                        <img th:src="${job.imageUrl != null ? job.imageUrl : '/images/default-job.jpg'}" class="job-card-image" alt="">
+                        <span class="job-badge badge-purple">Theo ca</span>
+                    </div>
+                    <div class="job-card-body">
+                        <div class="job-company" th:text="${job.employer.name}">Nhà tuyển dụng</div>
+                        <h5 class="job-title" th:text="${job.title}">Tên công việc</h5>
+                        <div class="job-meta">
+                            <span><i class="bi bi-clock"></i> <span th:text="${job.workingTimeText}">18:00 - 22:00</span></span>
+                            <span><i class="bi bi-cash-coin"></i> <span th:text="${job.salaryAmount} + ' / ' + ${job.salaryUnit}">150000 / CA</span></span>
+                        </div>
+                        <p class="job-desc" th:text="${job.shortDescription}">Mô tả ngắn</p>
+                        <div class="job-card-actions">
+                            <a class="btn btn-soft" th:href="@{'/jobs/' + ${job.id}}">Xem chi tiết</a>
+                            <a class="btn btn-gradient" th:href="@{'/jobs/' + ${job.id} + '/apply'}">Ứng tuyển</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section-block">
+    <div class="container">
+        <div class="section-header">
+            <div>
+                <span class="section-kicker">Ổn định hơn</span>
+                <h2 class="section-title">Công việc cố định</h2>
+            </div>
+            <a class="section-link" th:href="@{/jobs(jobGroup='CO_DINH')}">Xem tất cả</a>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6" th:each="job : ${jobsCoDinh}">
+                <div class="job-card">
+                    <div class="job-card-image-wrap">
+                        <img th:src="${job.imageUrl != null ? job.imageUrl : '/images/default-job.jpg'}" class="job-card-image" alt="">
+                        <span class="job-badge badge-cyan">Cố định</span>
+                    </div>
+                    <div class="job-card-body">
+                        <div class="job-company" th:text="${job.employer.name}">Nhà tuyển dụng</div>
+                        <h5 class="job-title" th:text="${job.title}">Tên công việc</h5>
+                        <div class="job-meta">
+                            <span><i class="bi bi-briefcase"></i> <span th:text="${job.workingType}">PART_TIME</span></span>
+                            <span><i class="bi bi-cash-stack"></i> <span th:text="${job.salaryAmount} + ' / ' + ${job.salaryUnit}">Lương</span></span>
+                        </div>
+                        <p class="job-desc" th:text="${job.shortDescription}">Mô tả ngắn</p>
+                        <div class="job-card-actions">
+                            <a class="btn btn-soft" th:href="@{'/jobs/' + ${job.id}}">Xem chi tiết</a>
+                            <a class="btn btn-gradient" th:href="@{'/jobs/' + ${job.id} + '/apply'}">Ứng tuyển</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script th:src="@{/js/app.js}"></script>
+</body>
+</html>

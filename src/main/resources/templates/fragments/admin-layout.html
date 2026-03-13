@@ -1,0 +1,51 @@
+<div th:fragment="adminLayout(content)" xmlns:th="http://www.w3.org/1999/xhtml">
+    <div class="admin-shell">
+        <aside class="admin-sidebar">
+            <div class="admin-brand">
+                <div class="brand-icon">P</div>
+                <div>
+                    <div class="brand-name">Partime Connect EPU</div>
+                    <div class="brand-sub">Admin Panel</div>
+                </div>
+            </div>
+
+            <div class="admin-menu">
+                <a class="admin-menu-item" th:href="@{/admin/dashboard}">
+                    <i class="bi bi-grid-1x2-fill"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a class="admin-menu-item" th:href="@{/admin/employers}">
+                    <i class="bi bi-shop"></i>
+                    <span>Nhà tuyển dụng</span>
+                </a>
+                <a class="admin-menu-item" th:href="@{/admin/jobs}">
+                    <i class="bi bi-briefcase-fill"></i>
+                    <span>Việc làm part-time</span>
+                </a>
+                <a class="admin-menu-item" th:href="@{/admin/applications}">
+                    <i class="bi bi-file-earmark-text-fill"></i>
+                    <span>Đơn ứng tuyển</span>
+                </a>
+                <a class="admin-menu-item text-danger" th:href="@{/admin/logout}">
+                    <i class="bi bi-box-arrow-right"></i>
+                    <span>Đăng xuất</span>
+                </a>
+            </div>
+        </aside>
+
+        <main class="admin-main">
+            <div class="admin-topbar">
+                <div>
+                    <h4 class="mb-1 fw-bold text-dark">Quản trị hệ thống</h4>
+                    <div class="text-muted small">Quản lý nhà tuyển dụng, việc làm part-time và đơn ứng tuyển</div>
+                </div>
+                <div class="admin-user-pill">
+                    <i class="bi bi-person-circle"></i>
+                    <span th:text="${session.adminName} ?: 'Admin'">Admin</span>
+                </div>
+            </div>
+
+            <div class="admin-content" th:replace="${content}"></div>
+        </main>
+    </div>
+</div>

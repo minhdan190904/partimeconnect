@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head('Form nhà tuyển dụng - Partime Connect EPU')}"></head>
+<body>
+<div th:replace="~{fragments/admin-layout :: adminLayout(~{::content})}">
+    <div th:fragment="content">
+        <div class="form-page-card">
+            <div class="page-card-header">
+                <div>
+                    <h4 class="mb-1" th:text="${employer.id != null ? 'Chỉnh sửa nhà tuyển dụng' : 'Thêm nhà tuyển dụng'}">Form</h4>
+                    <p class="text-muted mb-0">Nhập đầy đủ thông tin nơi tuyển dụng part-time</p>
+                </div>
+                <a class="btn btn-light" th:href="@{/admin/employers}">Quay lại</a>
+            </div>
+
+            <form th:action="${employer.id != null} ? @{'/admin/employers/update/' + ${employer.id}} : @{/admin/employers/store}"
+                  method="post" enctype="multipart/form-data">
+                <div class="row g-4">
+                    <div class="col-lg-8">
+                        <div class="panel-card">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Tên nơi tuyển dụng</label>
+                                    <input type="text" name="name" class="form-control modern-input" th:value="${employer.name}" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Người liên hệ</label>
+                                    <input type="text" name="contactPerson" class="form-control modern-input" th:value="${employer.contactPerson}">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Số điện thoại</label>
+                                    <input type="text" name="phone" class="form-control modern-input" th:value="${employer.phone}">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Email</label>
+                                    <input type="email" name="email" class="form-control modern-input" th:value="${employer.email}">
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Địa chỉ</label>
+                                    <input type="text" name="address" class="form-control modern-input" th:value="${employer.address}">
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Mô tả</label>
+                                    <textarea name="description" rows="5" class="form-control modern-input" th:text="${employer.description}"></textarea>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Trạng thái</label>
+                                    <select name="status" class="form-select modern-input">
+                                        <option value="ACTIVE" th:selected="${employer.status == 'ACTIVE'}">ACTIVE</option>
+                                        <option value="INACTIVE" th:selected="${employer.status == 'INACTIVE'}">INACTIVE</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="panel-card">
+                            <label class="form-label">Ảnh nơi tuyển dụng</label>
+                            <input type="file" name="image" class="form-control modern-input" accept="image/*">
+                            <div class="preview-wrap mt-3">
+                                <img th:src="${employer.imageUrl != null ? employer.imageUrl : '/images/default-employer.jpg'}" class="preview-image" alt="">
+                            </div>
+                            <button class="btn btn-gradient w-100 mt-4">
+                                <i class="bi bi-save me-1"></i> Lưu thông tin
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script th:src="@{/js/app.js}"></script>
+</body>
+</html>

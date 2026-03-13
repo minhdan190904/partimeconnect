@@ -1,0 +1,30 @@
+<footer th:fragment="footer" class="footer-section mt-5" xmlns:th="http://www.w3.org/1999/xhtml">
+    <div class="container">
+        <div class="footer-box">
+            <div class="row g-4 align-items-center">
+                <div class="col-lg-6">
+                    <h5 class="fw-bold mb-2">Partime Connect EPU</h5>
+                    <p class="mb-0 text-muted">
+                        Nền tảng kết nối việc làm part-time dành cho sinh viên, cửa hàng, quán cafe, siêu thị nhỏ và các đơn vị tuyển làm thêm.
+                    </p>
+                </div>
+                <div class="col-lg-3">
+                    <div class="footer-title">Điều hướng</div>
+                    <div class="d-flex flex-column gap-2">
+                        <a th:href="@{/}">Trang chủ</a>
+                        <a th:href="@{/jobs}">Danh sách việc làm</a>
+                        <a th:href="@{/admin/login}">Đăng nhập admin</a>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="footer-title">Liên hệ</div>
+                    <div class="d-flex flex-column gap-2 text-muted">
+                        <span>Email: support@partimeconnect.local</span>
+                        <span>Hotline: 0901 234 567</span>
+                        <span>EPU - Hà Nội</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>

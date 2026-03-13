@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head('Chi tiết đơn ứng tuyển - Partime Connect EPU')}"></head>
+<body>
+<div th:replace="~{fragments/admin-layout :: adminLayout(~{::content})}">
+    <div th:fragment="content">
+        <div class="row g-4">
+            <div class="col-lg-8">
+                <div class="panel-card">
+                    <div class="page-card-header p-0 mb-4">
+                        <div>
+                            <h4 class="mb-1">Chi tiết đơn ứng tuyển</h4>
+                            <p class="text-muted mb-0">Thông tin ứng viên gửi cho công việc part-time</p>
+                        </div>
+                        <a class="btn btn-light" th:href="@{/admin/applications}">Quay lại</a>
+                    </div>
+
+                    <div class="detail-grid">
+                        <div class="detail-row">
+                            <span>Họ tên</span>
+                            <strong th:text="${application.fullName}">Nguyễn Văn A</strong>
+                        </div>
+                        <div class="detail-row">
+                            <span>Số điện thoại</span>
+                            <strong th:text="${application.phone}">0901...</strong>
+                        </div>
+                        <div class="detail-row">
+                            <span>Email</span>
+                            <strong th:text="${application.email}">mail</strong>
+                        </div>
+                        <div class="detail-row">
+                            <span>Năm sinh</span>
+                            <strong th:text="${application.birthYear}">2004</strong>
+                        </div>
+                        <div class="detail-row">
+                            <span>Giới tính</span>
+                            <strong th:text="${application.gender}">Nam</strong>
+                        </div>
+                        <div class="detail-row">
+                            <span>Trường học</span>
+                            <strong th:text="${application.schoolName}">EPU</strong>
+                        </div>
+                        <div class="detail-row">
+                            <span>Chuyên ngành</span>
+                            <strong th:text="${application.major}">CNTT</strong>
+                        </div>
+                        <div class="detail-row">
+                            <span>Thời gian có thể làm</span>
+                            <strong th:text="${application.availableTime}">Ca tối</strong>
+                        </div>
+                        <div class="detail-row">
+                            <span>Công việc ứng tuyển</span>
+                            <strong th:text="${application.job.title}">Tên job</strong>
+                        </div>
+                    </div>
+
+                    <div class="content-box mt-4">
+                        <h5>Kinh nghiệm</h5>
+                        <p th:text="${application.experienceText}">Kinh nghiệm</p>
+                    </div>
+
+                    <div class="content-box">
+                        <h5>Ghi chú</h5>
+                        <p th:text="${application.note}">Ghi chú</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="panel-card">
+                    <h5 class="fw-bold mb-3">Trạng thái xử lý</h5>
+                    <form th:action="@{'/admin/applications/update-status/' + ${application.id}}" method="post">
+                        <label class="form-label">Trạng thái</label>
+                        <select name="status" class="form-select modern-input">
+                            <option value="NEW" th:selected="${application.status == 'NEW'}">NEW</option>
+                            <option value="REVIEWED" th:selected="${application.status == 'REVIEWED'}">REVIEWED</option>
+                            <option value="CONTACTED" th:selected="${application.status == 'CONTACTED'}">CONTACTED</option>
+                            <option value="REJECTED" th:selected="${application.status == 'REJECTED'}">REJECTED</option>
+                            <option value="FORWARDED_TO_EMPLOYER" th:selected="${application.status == 'FORWARDED_TO_EMPLOYER'}">FORWARDED_TO_EMPLOYER</option>
+                        </select>
+                        <button class="btn btn-gradient w-100 mt-3">Cập nhật trạng thái</button>
+                    </form>
+
+                    <a th:if="${application.cvFileUrl != null}" th:href="${application.cvFileUrl}" target="_blank" class="btn btn-soft w-100 mt-3">
+                        <i class="bi bi-file-earmark-arrow-down me-1"></i> Xem CV
+                    </a>
+
+                    <a th:href="@{'/admin/applications/delete/' + ${application.id}}"
+                       onclick="return confirm('Xóa đơn ứng tuyển này?')"
+                       class="btn btn-soft-danger w-100 mt-3">
+                        <i class="bi bi-trash me-1"></i> Xóa đơn
+                    </a>
+                </div>
+
+                <div class="panel-card mt-3">
+                    <h6 class="fw-bold">Thông tin job</h6>
+                    <div class="mt-3">
+                        <div class="fw-semibold" th:text="${application.job.title}">Tên job</div>
+                        <div class="text-muted small" th:text="${application.job.employer.name}">Nhà tuyển dụng</div>
+                        <div class="text-muted small mt-2" th:text="${application.job.workAddress}">Địa chỉ</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script th:src="@{/js/app.js}"></script>
+</body>
+</html>

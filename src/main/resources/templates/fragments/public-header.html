@@ -1,0 +1,38 @@
+<nav th:fragment="publicHeader" class="navbar navbar-expand-lg navbar-dark public-navbar sticky-top"
+     xmlns:th="http://www.w3.org/1999/xhtml">
+    <div class="container">
+        <a class="navbar-brand fw-bold d-flex align-items-center gap-2" th:href="@{/}">
+            <span class="brand-badge">P</span>
+            <span>Partime Connect EPU</span>
+        </a>
+
+        <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#publicNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="publicNavbar">
+            <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}">Trang chủ</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/jobs}">Việc làm</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/jobs?jobGroup=THEO_GIO}">Theo giờ</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/jobs?jobGroup=THEO_CA}">Theo ca</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/jobs?jobGroup=CO_DINH}">Cố định</a>
+                </li>
+                <li class="nav-item ms-lg-2">
+                    <a class="btn btn-light btn-sm rounded-pill px-3" th:href="@{/admin/login}">
+                        <i class="bi bi-shield-lock me-1"></i> Admin
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
