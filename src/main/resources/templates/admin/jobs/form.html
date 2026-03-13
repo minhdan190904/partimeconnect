@@ -13,8 +13,10 @@
                 <a class="btn btn-light" th:href="@{/admin/jobs}">Quay lại</a>
             </div>
 
-            <form th:action="${job.id != null} ? @{'/admin/jobs/update/' + ${job.id}} : @{/admin/jobs/store}"
-                  method="post" enctype="multipart/form-data">
+            <form th:if="${job.id == null}"
+                  th:action="@{/admin/jobs/store}"
+                  method="post"
+                  enctype="multipart/form-data">
                 <div class="row g-4">
                     <div class="col-lg-8">
                         <div class="panel-card">

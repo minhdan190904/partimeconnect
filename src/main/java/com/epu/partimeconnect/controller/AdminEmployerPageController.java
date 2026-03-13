@@ -31,6 +31,7 @@ public class AdminEmployerPageController {
     @PostMapping("/store")
     public String store(@ModelAttribute EmployerRequest request,
                         @RequestParam(value = "image", required = false) MultipartFile image) {
+        System.out.println("=== HIT /admin/jobs/store ===");
         employerService.create(request, image);
         return "redirect:/admin/employers";
     }

@@ -45,7 +45,9 @@ public class JobService {
     public Job create(JobRequest request, MultipartFile image) {
         Job job = new Job();
         mapFields(job, request);
-        job.setImageUrl(fileStorageService.store(image, "jobs"));
+        if (image != null && !image.isEmpty()) {
+            job.setImageUrl(fileStorageService.store(image, "jobs"));
+        }
         return jobRepository.save(job);
     }
 

@@ -3,6 +3,7 @@ package com.epu.partimeconnect.exception;
 import com.epu.partimeconnect.dto.ApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -31,8 +32,20 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(MaxUploadSizeExceededException.class)
     public ResponseEntity<ApiResponse<Object>> handleMaxSizeException(MaxUploadSizeExceededException ex) {
+        ex.printStackTrace();
+        Throwable cause = ex.getCause();
+        while (cause != null) {
+            System.out.println("CAUSE: " + cause.getClass().getName() + " - " + cause.getMessage());
+            cause = cause.getCause();
+        }
         return ResponseEntity.status(HttpStatus.PAYLOAD_TOO_LARGE)
                 .body(new ApiResponse<>(false, "File size exceeds the maximum allowed limit.", null));
+    }
+
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    public ResponseEntity<ApiResponse<Object>> handleMethodNotSupported(HttpRequestMethodNotSupportedException ex) {
+        return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED)
+                .body(new ApiResponse<>(false, "Phương thức HTTP không được hỗ trợ cho đường dẫn này.", null));
     }
 
     @ExceptionHandler(Exception.class)

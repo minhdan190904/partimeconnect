@@ -40,6 +40,12 @@ public class AdminJobPageController {
     @PostMapping("/store")
     public String store(@ModelAttribute JobRequest request,
                         @RequestParam(value = "image", required = false) MultipartFile image) {
+        System.out.println("=== HIT /admin/jobs/store ===");
+        System.out.println("title = " + request.getTitle());
+        System.out.println("employerId = " + request.getEmployerId());
+        System.out.println("image null = " + (image == null));
+        System.out.println("image empty = " + (image != null && image.isEmpty()));
+
         jobService.create(request, image);
         return "redirect:/admin/jobs";
     }
