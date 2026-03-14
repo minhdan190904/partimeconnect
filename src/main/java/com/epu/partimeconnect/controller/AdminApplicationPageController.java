@@ -1,5 +1,6 @@
 package com.epu.partimeconnect.controller;
 
+import com.epu.partimeconnect.entity.JobApplication;
 import com.epu.partimeconnect.service.JobApplicationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -25,7 +26,13 @@ public class AdminApplicationPageController {
 
     @GetMapping("/{id}")
     public String detail(@PathVariable Long id, Model model) {
-        model.addAttribute("application", jobApplicationService.getById(id));
+        JobApplication jobApplication = jobApplicationService.getById(id);
+
+        System.out.println("[DEBUG] Application detail for id=" + id + ": " + jobApplication);
+        System.out.println("[DEBUG] FullName: " + jobApplication.getFullName());
+        System.out.println("[DEBUG] Job: " + (jobApplication.getJob() != null ? jobApplication.getJob().getTitle() : "null"));
+
+        model.addAttribute("jobApplication", jobApplication);
         return "admin/applications/detail";
     }
 

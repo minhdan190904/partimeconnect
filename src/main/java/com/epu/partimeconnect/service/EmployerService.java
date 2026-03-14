@@ -4,6 +4,8 @@ import com.epu.partimeconnect.dto.EmployerRequest;
 import com.epu.partimeconnect.entity.Employer;
 import com.epu.partimeconnect.exception.ResourceNotFoundException;
 import com.epu.partimeconnect.repository.EmployerRepository;
+import com.epu.partimeconnect.repository.JobApplicationRepository;
+import com.epu.partimeconnect.repository.JobRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,6 +17,8 @@ import java.util.List;
 public class EmployerService {
     private final EmployerRepository employerRepository;
     private final FileStorageService fileStorageService;
+    private final JobRepository jobRepository;
+    private final JobApplicationRepository jobApplicationRepository;
 
     public List<Employer> getAll() {
         return employerRepository.findAll();
@@ -44,6 +48,16 @@ public class EmployerService {
 
     public void delete(Long id) {
         Employer employer = getById(id);
+        // Xóa tất cả job liên quan trước khi xóa employer
+        List<com.epu.partimeconnect.entity.Job> jobs = jobRepository.findByEmployerIdOrderByCreatedAtDesc(id);
+        for (com.epu.partimeconnect.entity.Job job : jobs) {
+            // Xóa tất cả job_application liên quan trước khi xóa job
+            List<com.epu.partimeconnect.entity.JobApplication> apps = jobApplicationRepository.findByJobIdOrderByCreatedAtDesc(job.getId());
+            for (com.epu.partimeconnect.entity.JobApplication app : apps) {
+                jobApplicationRepository.delete(app);
+            }
+            jobRepository.delete(job);
+        }
         fileStorageService.deleteByUrl(employer.getImageUrl());
         employerRepository.delete(employer);
     }

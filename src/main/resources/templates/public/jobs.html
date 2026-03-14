@@ -47,14 +47,30 @@
                 <div class="job-card job-card-full h-100">
                     <div class="job-card-image-wrap">
                         <img th:src="${job.imageUrl != null ? job.imageUrl : '/images/default-job.jpg'}" class="job-card-image" alt="">
-                        <span class="job-badge" th:text="${job.jobGroup}">THEO_GIO</span>
+                        <span class="job-badge" th:switch="${job.jobGroup}">
+                            <span th:case="'THEO_GIO'">Theo giờ</span>
+                            <span th:case="'THEO_CA'">Theo ca</span>
+                            <span th:case="'CO_DINH'">Cố định</span>
+                            <span th:case="*" th:text="${job.jobGroup}"></span>
+                        </span>
                     </div>
                     <div class="job-card-body d-flex flex-column">
                         <div class="job-company" th:text="${job.employer.name}">Nhà tuyển dụng</div>
                         <h5 class="job-title" th:text="${job.title}">Tên công việc</h5>
                         <div class="job-meta mb-2">
                             <span><i class="bi bi-geo-alt"></i> <span th:text="${job.workAddress}">Địa chỉ</span></span>
-                            <span><i class="bi bi-cash"></i> <span th:text="${job.salaryAmount} + ' / ' + ${job.salaryUnit}">Lương</span></span>
+                            <span><i class="bi bi-cash"></i>
+    <span th:text="${#numbers.formatInteger(job.salaryAmount, 0, 'COMMA')}"></span>
+    <span th:switch="${job.salaryUnit}">
+        <span th:case="'PER_HOUR'">VNĐ/giờ</span>
+        <span th:case="'PER_SHIFT'">VNĐ/ca</span>
+        <span th:case="'PER_DAY'">VNĐ/ngày</span>
+        <span th:case="'PER_WEEK'">VNĐ/tuần</span>
+        <span th:case="'PER_MONTH'">VNĐ/tháng</span>
+        <span th:case="'PER_YEAR'">VNĐ/năm</span>
+        <span th:case="*">VNĐ</span>
+    </span>
+</span>
                         </div>
                         <p class="job-desc flex-grow-1" th:text="${job.shortDescription}">Mô tả ngắn</p>
                         <div class="job-tags">

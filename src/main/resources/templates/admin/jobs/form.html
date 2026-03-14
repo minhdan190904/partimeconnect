@@ -13,10 +13,12 @@
                 <a class="btn btn-light" th:href="@{/admin/jobs}">Quay lại</a>
             </div>
 
+            <!-- FORM CREATE -->
             <form th:if="${job.id == null}"
                   th:action="@{/admin/jobs/store}"
                   method="post"
-                  enctype="multipart/form-data">
+                  enctype="multipart/form-data"
+                  class="job-form">
                 <div class="row g-4">
                     <div class="col-lg-8">
                         <div class="panel-card">
@@ -25,10 +27,12 @@
                                     <label class="form-label">Tiêu đề công việc</label>
                                     <input type="text" name="title" class="form-control modern-input" th:value="${job.title}" required>
                                 </div>
+
                                 <div class="col-md-4">
                                     <label class="form-label">Slug</label>
                                     <input type="text" name="slug" class="form-control modern-input" th:value="${job.slug}">
                                 </div>
+
                                 <div class="col-md-6">
                                     <label class="form-label">Nhà tuyển dụng</label>
                                     <select name="employerId" class="form-select modern-input" required>
@@ -40,6 +44,7 @@
                                         </option>
                                     </select>
                                 </div>
+
                                 <div class="col-md-3">
                                     <label class="form-label">Loại job</label>
                                     <select name="jobGroup" class="form-select modern-input">
@@ -48,6 +53,7 @@
                                         <option value="CO_DINH" th:selected="${job.jobGroup == 'CO_DINH'}">CO_DINH</option>
                                     </select>
                                 </div>
+
                                 <div class="col-md-3">
                                     <label class="form-label">Loại làm việc</label>
                                     <select name="workingType" class="form-select modern-input">
@@ -65,6 +71,7 @@
                                     <label class="form-label">Mức lương</label>
                                     <input type="number" step="0.01" name="salaryAmount" class="form-control modern-input" th:value="${job.salaryAmount}">
                                 </div>
+
                                 <div class="col-md-4">
                                     <label class="form-label">Đơn vị lương</label>
                                     <select name="salaryUnit" class="form-select modern-input">
@@ -73,6 +80,7 @@
                                         <option value="THANG" th:selected="${job.salaryUnit == 'THANG'}">THANG</option>
                                     </select>
                                 </div>
+
                                 <div class="col-md-4">
                                     <label class="form-label">Số lượng</label>
                                     <input type="number" name="quantity" class="form-control modern-input" th:value="${job.quantity}">
@@ -82,6 +90,7 @@
                                     <label class="form-label">Nhãn ca làm</label>
                                     <input type="text" name="shiftLabel" class="form-control modern-input" th:value="${job.shiftLabel}" placeholder="Ví dụ: Ca tối">
                                 </div>
+
                                 <div class="col-md-6">
                                     <label class="form-label">Thời gian làm</label>
                                     <input type="text" name="workingTimeText" class="form-control modern-input" th:value="${job.workingTimeText}" placeholder="Ví dụ: 18:00 - 22:00">
@@ -91,6 +100,7 @@
                                     <label class="form-label">Tỉnh / Thành</label>
                                     <input type="text" name="province" class="form-control modern-input" th:value="${job.province}">
                                 </div>
+
                                 <div class="col-md-6">
                                     <label class="form-label">Quận / Huyện</label>
                                     <input type="text" name="district" class="form-control modern-input" th:value="${job.district}">
@@ -98,16 +108,33 @@
 
                                 <div class="col-12">
                                     <label class="form-label">Địa chỉ nơi làm việc</label>
-                                    <input type="text" name="workAddress" id="workAddress" class="form-control modern-input" th:value="${job.workAddress}">
+                                    <input type="text" name="workAddress" id="workAddress" class="form-control modern-input" th:value="${job.workAddress}" placeholder="Ví dụ: 144 Xuân Thủy, Cầu Giấy, Hà Nội">
                                 </div>
 
                                 <div class="col-md-6">
-                                    <label class="form-label">Vĩ độ</label>
-                                    <input type="text" name="latitude" id="latitude" class="form-control modern-input" th:value="${job.latitude}">
+                                    <label class="form-label">Vĩ độ (latitude)</label>
+                                    <input type="text"
+                                           name="latitude"
+                                           id="latitude"
+                                           class="form-control modern-input"
+                                           th:value="${job.latitude}"
+                                           readonly
+                                           required
+                                           style="background:#f5f5f5; cursor:not-allowed;">
+                                    <small class="text-muted">Không nhập tay. Chỉ được chọn từ bản đồ.</small>
                                 </div>
+
                                 <div class="col-md-6">
-                                    <label class="form-label">Kinh độ</label>
-                                    <input type="text" name="longitude" id="longitude" class="form-control modern-input" th:value="${job.longitude}">
+                                    <label class="form-label">Kinh độ (longitude)</label>
+                                    <input type="text"
+                                           name="longitude"
+                                           id="longitude"
+                                           class="form-control modern-input"
+                                           th:value="${job.longitude}"
+                                           readonly
+                                           required
+                                           style="background:#f5f5f5; cursor:not-allowed;">
+                                    <small class="text-muted">Không nhập tay. Chỉ được chọn từ bản đồ.</small>
                                 </div>
 
                                 <div class="col-12">
@@ -119,6 +146,7 @@
                                     <label class="form-label">Yêu cầu</label>
                                     <textarea name="requirements" rows="4" class="form-control modern-input" th:text="${job.requirements}"></textarea>
                                 </div>
+
                                 <div class="col-md-6">
                                     <label class="form-label">Quyền lợi</label>
                                     <textarea name="benefits" rows="4" class="form-control modern-input" th:text="${job.benefits}"></textarea>
@@ -131,6 +159,7 @@
                                         <option value="CLOSED" th:selected="${job.status == 'CLOSED'}">CLOSED</option>
                                     </select>
                                 </div>
+
                                 <div class="col-md-6">
                                     <label class="form-label">Hiển thị public</label>
                                     <select name="published" class="form-select modern-input">
@@ -146,17 +175,247 @@
                         <div class="panel-card">
                             <label class="form-label">Ảnh công việc</label>
                             <input type="file" name="image" class="form-control modern-input" accept="image/*">
+
                             <div class="preview-wrap mt-3">
                                 <img th:src="${job.imageUrl != null ? job.imageUrl : '/images/default-job.jpg'}" class="preview-image" alt="">
                             </div>
 
-                            <button type="button" class="btn btn-soft w-100 mt-3" onclick="previewMap()">
-                                <i class="bi bi-map me-1"></i> Xem trước bản đồ
+                            <button type="button" class="btn btn-soft w-100 mt-3" id="showMapBtn">
+                                <i class="bi bi-map me-1"></i> Chọn vị trí trên bản đồ
                             </button>
 
-                            <iframe id="mapFrame" class="map-frame small-map mt-3"></iframe>
+                            <div id="mapContainer" style="display:none; margin-top:12px;">
+                                <div class="mb-2">
+                                    <label class="form-label">Tìm địa chỉ</label>
+                                    <div class="input-group">
+                                        <input type="text"
+                                               id="mapSearchInput"
+                                               class="form-control modern-input"
+                                               placeholder="Nhập địa chỉ để tìm trên bản đồ">
+                                        <button type="button" class="btn btn-outline-primary" id="searchAddressBtn">
+                                            Tìm
+                                        </button>
+                                    </div>
+                                    <small class="text-muted d-block mt-1">
+                                        Gợi ý: nhập địa chỉ gần đúng trước, sau đó bấm lên bản đồ để chỉnh chính xác.
+                                    </small>
+                                </div>
 
-                            <button class="btn btn-gradient w-100 mt-4">
+                                <div id="mapSearchStatus" class="small text-muted mb-2"></div>
+
+                                <div id="leafletMap" style="height:320px; width:100%; border-radius:8px; overflow:hidden;"></div>
+
+                                <div class="d-grid gap-2 mt-2">
+                                    <button type="button" class="btn btn-secondary btn-sm" id="closeMapBtn">Đóng bản đồ</button>
+                                </div>
+                            </div>
+
+                            <button class="btn btn-gradient w-100 mt-4" type="submit">
+                                <i class="bi bi-save me-1"></i> Lưu việc làm
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <!-- FORM UPDATE -->
+            <form th:if="${job.id != null}"
+                  th:action="@{'/admin/jobs/update/' + ${job.id}}"
+                  method="post"
+                  enctype="multipart/form-data"
+                  class="job-form">
+                <div class="row g-4">
+                    <div class="col-lg-8">
+                        <div class="panel-card">
+                            <div class="row g-3">
+                                <div class="col-md-8">
+                                    <label class="form-label">Tiêu đề công việc</label>
+                                    <input type="text" name="title" class="form-control modern-input" th:value="${job.title}" required>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="form-label">Slug</label>
+                                    <input type="text" name="slug" class="form-control modern-input" th:value="${job.slug}">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="form-label">Nhà tuyển dụng</label>
+                                    <select name="employerId" class="form-select modern-input" required>
+                                        <option value="">Chọn nhà tuyển dụng</option>
+                                        <option th:each="employer : ${employers}"
+                                                th:value="${employer.id}"
+                                                th:text="${employer.name}"
+                                                th:selected="${job.employer != null and job.employer.id == employer.id}">
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label class="form-label">Loại job</label>
+                                    <select name="jobGroup" class="form-select modern-input">
+                                        <option value="THEO_GIO" th:selected="${job.jobGroup == 'THEO_GIO'}">THEO_GIO</option>
+                                        <option value="THEO_CA" th:selected="${job.jobGroup == 'THEO_CA'}">THEO_CA</option>
+                                        <option value="CO_DINH" th:selected="${job.jobGroup == 'CO_DINH'}">CO_DINH</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label class="form-label">Loại làm việc</label>
+                                    <select name="workingType" class="form-select modern-input">
+                                        <option value="PART_TIME" th:selected="${job.workingType == 'PART_TIME'}">PART_TIME</option>
+                                        <option value="FIXED" th:selected="${job.workingType == 'FIXED'}">FIXED</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-12">
+                                    <label class="form-label">Mô tả ngắn</label>
+                                    <input type="text" name="shortDescription" class="form-control modern-input" th:value="${job.shortDescription}">
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="form-label">Mức lương</label>
+                                    <input type="number" step="0.01" name="salaryAmount" class="form-control modern-input" th:value="${job.salaryAmount}">
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="form-label">Đơn vị lương</label>
+                                    <select name="salaryUnit" class="form-select modern-input">
+                                        <option value="GIO" th:selected="${job.salaryUnit == 'GIO'}">GIO</option>
+                                        <option value="CA" th:selected="${job.salaryUnit == 'CA'}">CA</option>
+                                        <option value="THANG" th:selected="${job.salaryUnit == 'THANG'}">THANG</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="form-label">Số lượng</label>
+                                    <input type="number" name="quantity" class="form-control modern-input" th:value="${job.quantity}">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="form-label">Nhãn ca làm</label>
+                                    <input type="text" name="shiftLabel" class="form-control modern-input" th:value="${job.shiftLabel}" placeholder="Ví dụ: Ca tối">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="form-label">Thời gian làm</label>
+                                    <input type="text" name="workingTimeText" class="form-control modern-input" th:value="${job.workingTimeText}" placeholder="Ví dụ: 18:00 - 22:00">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="form-label">Tỉnh / Thành</label>
+                                    <input type="text" name="province" class="form-control modern-input" th:value="${job.province}">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="form-label">Quận / Huyện</label>
+                                    <input type="text" name="district" class="form-control modern-input" th:value="${job.district}">
+                                </div>
+
+                                <div class="col-12">
+                                    <label class="form-label">Địa chỉ nơi làm việc</label>
+                                    <input type="text" name="workAddress" id="workAddress" class="form-control modern-input" th:value="${job.workAddress}" placeholder="Ví dụ: 144 Xuân Thủy, Cầu Giấy, Hà Nội">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="form-label">Vĩ độ (latitude)</label>
+                                    <input type="text"
+                                           name="latitude"
+                                           id="latitude"
+                                           class="form-control modern-input"
+                                           th:value="${job.latitude}"
+                                           readonly
+                                           required
+                                           style="background:#f5f5f5; cursor:not-allowed;">
+                                    <small class="text-muted">Không nhập tay. Chỉ được chọn từ bản đồ.</small>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="form-label">Kinh độ (longitude)</label>
+                                    <input type="text"
+                                           name="longitude"
+                                           id="longitude"
+                                           class="form-control modern-input"
+                                           th:value="${job.longitude}"
+                                           readonly
+                                           required
+                                           style="background:#f5f5f5; cursor:not-allowed;">
+                                    <small class="text-muted">Không nhập tay. Chỉ được chọn từ bản đồ.</small>
+                                </div>
+
+                                <div class="col-12">
+                                    <label class="form-label">Mô tả chi tiết</label>
+                                    <textarea name="description" rows="5" class="form-control modern-input" th:text="${job.description}"></textarea>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="form-label">Yêu cầu</label>
+                                    <textarea name="requirements" rows="4" class="form-control modern-input" th:text="${job.requirements}"></textarea>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="form-label">Quyền lợi</label>
+                                    <textarea name="benefits" rows="4" class="form-control modern-input" th:text="${job.benefits}"></textarea>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="form-label">Trạng thái</label>
+                                    <select name="status" class="form-select modern-input">
+                                        <option value="OPEN" th:selected="${job.status == 'OPEN'}">OPEN</option>
+                                        <option value="CLOSED" th:selected="${job.status == 'CLOSED'}">CLOSED</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="form-label">Hiển thị public</label>
+                                    <select name="published" class="form-select modern-input">
+                                        <option value="true" th:selected="${job.published == true}">Hiển thị</option>
+                                        <option value="false" th:selected="${job.published == false}">Ẩn</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="panel-card">
+                            <label class="form-label">Ảnh công việc</label>
+                            <input type="file" name="image" class="form-control modern-input" accept="image/*">
+
+                            <div class="preview-wrap mt-3">
+                                <img th:src="${job.imageUrl != null ? job.imageUrl : '/images/default-job.jpg'}" class="preview-image" alt="">
+                            </div>
+
+                            <button type="button" class="btn btn-soft w-100 mt-3" id="showMapBtn">
+                                <i class="bi bi-map me-1"></i> Chọn vị trí trên bản đồ
+                            </button>
+
+                            <div id="mapContainer" style="display:none; margin-top:12px;">
+                                <div class="mb-2">
+                                    <label class="form-label">Tìm địa chỉ</label>
+                                    <div class="input-group">
+                                        <input type="text"
+                                               id="mapSearchInput"
+                                               class="form-control modern-input"
+                                               placeholder="Nhập địa chỉ để tìm trên bản đồ">
+                                        <button type="button" class="btn btn-outline-primary" id="searchAddressBtn">
+                                            Tìm
+                                        </button>
+                                    </div>
+                                    <small class="text-muted d-block mt-1">
+                                        Gợi ý: nhập địa chỉ gần đúng trước, sau đó bấm lên bản đồ để chỉnh chính xác.
+                                    </small>
+                                </div>
+
+                                <div id="mapSearchStatus" class="small text-muted mb-2"></div>
+
+                                <div id="leafletMap" style="height:320px; width:100%; border-radius:8px; overflow:hidden;"></div>
+
+                                <div class="d-grid gap-2 mt-2">
+                                    <button type="button" class="btn btn-secondary btn-sm" id="closeMapBtn">Đóng bản đồ</button>
+                                </div>
+                            </div>
+
+                            <button class="btn btn-gradient w-100 mt-4" type="submit">
                                 <i class="bi bi-save me-1"></i> Lưu việc làm
                             </button>
                         </div>
@@ -166,7 +425,205 @@
         </div>
     </div>
 </div>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script th:src="@{/js/app.js}"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const showMapBtn = document.getElementById('showMapBtn');
+        const mapContainer = document.getElementById('mapContainer');
+        const closeMapBtn = document.getElementById('closeMapBtn');
+        const mapSearchInput = document.getElementById('mapSearchInput');
+        const searchAddressBtn = document.getElementById('searchAddressBtn');
+        const mapSearchStatus = document.getElementById('mapSearchStatus');
+
+        const addressInput = document.getElementById('workAddress');
+        const latInput = document.getElementById('latitude');
+        const lngInput = document.getElementById('longitude');
+
+        let map = null;
+        let marker = null;
+
+        const defaultLat = 21.0285;
+        const defaultLng = 105.8542;
+
+        function setCoordinates(lat, lng) {
+            latInput.value = Number(lat).toFixed(6);
+            lngInput.value = Number(lng).toFixed(6);
+        }
+
+        function placeMarker(lat, lng, moveMap = true, zoom = 16) {
+            if (!map) return;
+
+            if (marker) {
+                marker.setLatLng([lat, lng]);
+            } else {
+                marker = L.marker([lat, lng], {draggable: true}).addTo(map);
+
+                marker.on('dragend', function (e) {
+                    const position = e.target.getLatLng();
+                    setCoordinates(position.lat, position.lng);
+                });
+            }
+
+            setCoordinates(lat, lng);
+
+            if (moveMap) {
+                map.setView([lat, lng], zoom);
+            }
+        }
+
+        function initMap() {
+            if (map) return;
+
+            const initLat = latInput.value ? parseFloat(latInput.value) : defaultLat;
+            const initLng = lngInput.value ? parseFloat(lngInput.value) : defaultLng;
+            const initZoom = (latInput.value && lngInput.value) ? 16 : 13;
+
+            map = L.map('leafletMap').setView([initLat, initLng], initZoom);
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '&copy; OpenStreetMap contributors'
+            }).addTo(map);
+
+            if (latInput.value && lngInput.value) {
+                placeMarker(parseFloat(latInput.value), parseFloat(lngInput.value), false, initZoom);
+            }
+
+            map.on('click', function (e) {
+                const {lat, lng} = e.latlng;
+                placeMarker(lat, lng, false);
+                mapSearchStatus.innerHTML = 'Đã chọn vị trí trên bản đồ.';
+            });
+        }
+
+        async function searchAddress() {
+            const keyword = mapSearchInput.value.trim() || addressInput.value.trim();
+
+            if (!keyword) {
+                mapSearchStatus.innerHTML = '<span class="text-danger">Vui lòng nhập địa chỉ cần tìm.</span>';
+                return;
+            }
+
+            mapSearchStatus.innerHTML = 'Đang tìm địa chỉ...';
+
+            try {
+                const url = `https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${encodeURIComponent(keyword)}`;
+                const response = await fetch(url, {
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                const data = await response.json();
+
+                if (!data || data.length === 0) {
+                    mapSearchStatus.innerHTML = '<span class="text-danger">Không tìm thấy địa chỉ phù hợp. Hãy nhập gần đúng hơn rồi click tay trên bản đồ.</span>';
+                    return;
+                }
+
+                const result = data[0];
+                const lat = parseFloat(result.lat);
+                const lng = parseFloat(result.lon);
+
+                initMap();
+                placeMarker(lat, lng, true, 17);
+
+                if (!addressInput.value || addressInput.value.trim() === '') {
+                    addressInput.value = result.display_name;
+                }
+
+                mapSearchStatus.innerHTML = '<span class="text-success">Đã tìm thấy vị trí. Bạn có thể bấm lại trên bản đồ để chỉnh chính xác hơn.</span>';
+            } catch (error) {
+                mapSearchStatus.innerHTML = '<span class="text-danger">Có lỗi khi tìm địa chỉ. Vui lòng thử lại.</span>';
+                console.error(error);
+            }
+        }
+
+        // Chặn nhập tay / paste vào lat lng
+        [latInput, lngInput].forEach(input => {
+            input.addEventListener('keydown', function (e) {
+                e.preventDefault();
+            });
+
+            input.addEventListener('paste', function (e) {
+                e.preventDefault();
+            });
+
+            input.addEventListener('drop', function (e) {
+                e.preventDefault();
+            });
+        });
+
+        showMapBtn.addEventListener('click', function () {
+            mapContainer.style.display = 'block';
+            initMap();
+
+            setTimeout(() => {
+                map.invalidateSize();
+            }, 200);
+
+            if (addressInput.value.trim() && (!latInput.value || !lngInput.value)) {
+                mapSearchInput.value = addressInput.value.trim();
+            }
+        });
+
+        closeMapBtn.addEventListener('click', function () {
+            mapContainer.style.display = 'none';
+        });
+
+        searchAddressBtn.addEventListener('click', function () {
+            initMap();
+            searchAddress();
+        });
+
+        mapSearchInput.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                initMap();
+                searchAddress();
+            }
+        });
+
+        document.querySelectorAll('.job-form').forEach(form => {
+            form.addEventListener('submit', function (e) {
+                if (!latInput.value || !lngInput.value) {
+                    e.preventDefault();
+                    alert('Vui lòng tìm và chọn vị trí trên bản đồ trước khi lưu!');
+                    mapContainer.style.display = 'block';
+                    initMap();
+                    setTimeout(() => {
+                        map.invalidateSize();
+                    }, 200);
+                    return;
+                }
+            });
+        });
+
+        // Preview image when selecting file
+        const imageInput = document.querySelector('input[type="file"][name="image"]');
+        const previewImg = document.querySelector('.preview-image');
+        const defaultImg = previewImg.getAttribute('data-default') || previewImg.src;
+        if (imageInput && previewImg) {
+            imageInput.addEventListener('change', function (e) {
+                const file = this.files && this.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (ev) {
+                        previewImg.src = ev.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    previewImg.src = defaultImg;
+                }
+            });
+        }
+    });
+</script>
 </body>
 </html>
+

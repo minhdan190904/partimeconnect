@@ -18,6 +18,8 @@ public class JobApplicationService {
     private final JobApplicationRepository jobApplicationRepository;
     private final JobRepository jobRepository;
     private final FileStorageService fileStorageService;
+    private final TelegramService telegramService;
+    private final TelegramMessageBuilder telegramMessageBuilder;
 
     public List<JobApplication> getAll() {
         return jobApplicationRepository.findAll();
@@ -35,6 +37,7 @@ public class JobApplicationService {
     public JobApplication create(JobApplicationRequest request, MultipartFile cvFile) {
         Job job = jobRepository.findById(request.getJobId())
                 .orElseThrow(() -> new ResourceNotFoundException("Job not found"));
+
         JobApplication application = new JobApplication();
         application.setJob(job);
         application.setFullName(request.getFullName());
@@ -49,7 +52,13 @@ public class JobApplicationService {
         application.setNote(request.getNote());
         application.setCvFileUrl(fileStorageService.store(cvFile, "cvs"));
         application.setStatus("NEW");
-        return jobApplicationRepository.save(application);
+
+        JobApplication savedApplication = jobApplicationRepository.save(application);
+
+        String telegramMessage = telegramMessageBuilder.buildNewApplicationMessage(savedApplication);
+        telegramService.sendMessage(telegramMessage);
+
+        return savedApplication;
     }
 
     public JobApplication updateStatus(Long id, String status) {

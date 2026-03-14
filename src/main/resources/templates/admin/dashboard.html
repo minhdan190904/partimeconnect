@@ -4,6 +4,14 @@
 <body>
 <div th:replace="~{fragments/admin-layout :: adminLayout(~{::content})}">
     <div th:fragment="content">
+        <div class="row g-4 mb-3">
+            <div class="col-auto">
+                <a href="/" class="btn btn-outline-primary">
+                    <i class="bi bi-house-door"></i> Trang chủ
+                </a>
+            </div>
+        </div>
+
         <div class="row g-4">
             <div class="col-lg-3 col-md-6">
                 <div class="stat-card">

@@ -18,50 +18,50 @@
                     <div class="detail-grid">
                         <div class="detail-row">
                             <span>Họ tên</span>
-                            <strong th:text="${application.fullName}">Nguyễn Văn A</strong>
+                            <strong th:text="${jobApplication.fullName != null and !#strings.isEmpty(jobApplication.fullName) ? jobApplication.fullName : 'Chưa cập nhật'}">Nguyễn Văn A</strong>
                         </div>
                         <div class="detail-row">
                             <span>Số điện thoại</span>
-                            <strong th:text="${application.phone}">0901...</strong>
+                            <strong th:text="${jobApplication.phone != null and !#strings.isEmpty(jobApplication.phone) ? jobApplication.phone : 'Chưa cập nhật'}">0901...</strong>
                         </div>
                         <div class="detail-row">
                             <span>Email</span>
-                            <strong th:text="${application.email}">mail</strong>
+                            <strong th:text="${jobApplication.email != null and !#strings.isEmpty(jobApplication.email) ? jobApplication.email : 'Chưa cập nhật'}">mail</strong>
                         </div>
                         <div class="detail-row">
                             <span>Năm sinh</span>
-                            <strong th:text="${application.birthYear}">2004</strong>
+                            <strong th:text="${jobApplication.birthYear != null ? jobApplication.birthYear : 'Chưa cập nhật'}">2004</strong>
                         </div>
                         <div class="detail-row">
                             <span>Giới tính</span>
-                            <strong th:text="${application.gender}">Nam</strong>
+                            <strong th:text="${jobApplication.gender != null and !#strings.isEmpty(jobApplication.gender) ? jobApplication.gender : 'Chưa cập nhật'}">Nam</strong>
                         </div>
                         <div class="detail-row">
                             <span>Trường học</span>
-                            <strong th:text="${application.schoolName}">EPU</strong>
+                            <strong th:text="${jobApplication.schoolName != null and !#strings.isEmpty(jobApplication.schoolName) ? jobApplication.schoolName : 'Chưa cập nhật'}">EPU</strong>
                         </div>
                         <div class="detail-row">
                             <span>Chuyên ngành</span>
-                            <strong th:text="${application.major}">CNTT</strong>
+                            <strong th:text="${jobApplication.major != null and !#strings.isEmpty(jobApplication.major) ? jobApplication.major : 'Chưa cập nhật'}">CNTT</strong>
                         </div>
                         <div class="detail-row">
                             <span>Thời gian có thể làm</span>
-                            <strong th:text="${application.availableTime}">Ca tối</strong>
+                            <strong th:text="${jobApplication.availableTime != null and !#strings.isEmpty(jobApplication.availableTime) ? jobApplication.availableTime : 'Chưa cập nhật'}">Ca tối</strong>
                         </div>
                         <div class="detail-row">
                             <span>Công việc ứng tuyển</span>
-                            <strong th:text="${application.job.title}">Tên job</strong>
+                            <strong th:text="${jobApplication.job != null ? jobApplication.job.title : 'Không có công việc'}">Tên job</strong>
                         </div>
                     </div>
 
                     <div class="content-box mt-4">
                         <h5>Kinh nghiệm</h5>
-                        <p th:text="${application.experienceText}">Kinh nghiệm</p>
+                        <p th:text="${jobApplication.experienceText != null and !#strings.isEmpty(jobApplication.experienceText) ? jobApplication.experienceText : 'Không có thông tin kinh nghiệm'}">Kinh nghiệm</p>
                     </div>
 
                     <div class="content-box">
                         <h5>Ghi chú</h5>
-                        <p th:text="${application.note}">Ghi chú</p>
+                        <p th:text="${jobApplication.note != null and !#strings.isEmpty(jobApplication.note) ? jobApplication.note : 'Không có ghi chú'}">Ghi chú</p>
                     </div>
                 </div>
             </div>
@@ -69,23 +69,26 @@
             <div class="col-lg-4">
                 <div class="panel-card">
                     <h5 class="fw-bold mb-3">Trạng thái xử lý</h5>
-                    <form th:action="@{'/admin/applications/update-status/' + ${application.id}}" method="post">
+                    <form th:action="@{'/admin/applications/update-status/' + ${jobApplication.id}}" method="post">
                         <label class="form-label">Trạng thái</label>
                         <select name="status" class="form-select modern-input">
-                            <option value="NEW" th:selected="${application.status == 'NEW'}">NEW</option>
-                            <option value="REVIEWED" th:selected="${application.status == 'REVIEWED'}">REVIEWED</option>
-                            <option value="CONTACTED" th:selected="${application.status == 'CONTACTED'}">CONTACTED</option>
-                            <option value="REJECTED" th:selected="${application.status == 'REJECTED'}">REJECTED</option>
-                            <option value="FORWARDED_TO_EMPLOYER" th:selected="${application.status == 'FORWARDED_TO_EMPLOYER'}">FORWARDED_TO_EMPLOYER</option>
+                            <option value="NEW" th:selected="${jobApplication.status == 'NEW'}">NEW</option>
+                            <option value="REVIEWED" th:selected="${jobApplication.status == 'REVIEWED'}">REVIEWED</option>
+                            <option value="CONTACTED" th:selected="${jobApplication.status == 'CONTACTED'}">CONTACTED</option>
+                            <option value="REJECTED" th:selected="${jobApplication.status == 'REJECTED'}">REJECTED</option>
+                            <option value="FORWARDED_TO_EMPLOYER" th:selected="${jobApplication.status == 'FORWARDED_TO_EMPLOYER'}">FORWARDED_TO_EMPLOYER</option>
                         </select>
                         <button class="btn btn-gradient w-100 mt-3">Cập nhật trạng thái</button>
                     </form>
 
-                    <a th:if="${application.cvFileUrl != null}" th:href="${application.cvFileUrl}" target="_blank" class="btn btn-soft w-100 mt-3">
+                    <a th:if="${jobApplication.cvFileUrl != null and !#strings.isEmpty(jobApplication.cvFileUrl)}"
+                       th:href="${jobApplication.cvFileUrl}"
+                       target="_blank"
+                       class="btn btn-soft w-100 mt-3">
                         <i class="bi bi-file-earmark-arrow-down me-1"></i> Xem CV
                     </a>
 
-                    <a th:href="@{'/admin/applications/delete/' + ${application.id}}"
+                    <a th:href="@{'/admin/applications/delete/' + ${jobApplication.id}}"
                        onclick="return confirm('Xóa đơn ứng tuyển này?')"
                        class="btn btn-soft-danger w-100 mt-3">
                         <i class="bi bi-trash me-1"></i> Xóa đơn
@@ -95,9 +98,18 @@
                 <div class="panel-card mt-3">
                     <h6 class="fw-bold">Thông tin job</h6>
                     <div class="mt-3">
-                        <div class="fw-semibold" th:text="${application.job.title}">Tên job</div>
-                        <div class="text-muted small" th:text="${application.job.employer.name}">Nhà tuyển dụng</div>
-                        <div class="text-muted small mt-2" th:text="${application.job.workAddress}">Địa chỉ</div>
+                        <div class="fw-semibold"
+                             th:text="${jobApplication.job != null ? jobApplication.job.title : 'Không có công việc'}">
+                            Tên job
+                        </div>
+                        <div class="text-muted small"
+                             th:text="${jobApplication.job != null and jobApplication.job.employer != null ? jobApplication.job.employer.name : 'Không có nhà tuyển dụng'}">
+                            Nhà tuyển dụng
+                        </div>
+                        <div class="text-muted small mt-2"
+                             th:text="${jobApplication.job != null and jobApplication.job.workAddress != null and !#strings.isEmpty(jobApplication.job.workAddress) ? jobApplication.job.workAddress : 'Không có địa chỉ'}">
+                            Địa chỉ
+                        </div>
                     </div>
                 </div>
             </div>
