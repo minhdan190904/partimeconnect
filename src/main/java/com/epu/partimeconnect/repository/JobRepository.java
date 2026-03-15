@@ -34,4 +34,13 @@ public interface JobRepository extends JpaRepository<Job, Long> {
 
     @Query("SELECT j FROM Job j WHERE j.published = true AND j.status = 'OPEN' AND (LOWER(j.workAddress) LIKE LOWER(CONCAT('%', :area, '%')) OR LOWER(j.province) LIKE LOWER(CONCAT('%', :area, '%'))) ORDER BY j.createdAt DESC")
     List<Job> searchByAreaOrProvince(@Param("area") String area);
+
+    @Query("SELECT j FROM Job j WHERE j.published = true AND j.status = 'OPEN' " +
+           "AND (LOWER(j.title) LIKE LOWER(CONCAT('%', :keyword, '%')) " +
+           "OR LOWER(j.workAddress) LIKE LOWER(CONCAT('%', :keyword, '%')) " +
+           "OR LOWER(j.province) LIKE LOWER(CONCAT('%', :keyword, '%'))) " +
+           "AND LOWER(j.workAddress) LIKE LOWER(CONCAT('%', :area, '%')) " +
+           "AND (:jobGroup IS NULL OR j.jobGroup = :jobGroup) " +
+           "ORDER BY j.createdAt DESC")
+    List<Job> searchPublicJobsFullFilter(@Param("keyword") String keyword, @Param("jobGroup") String jobGroup, @Param("area") String area);
 }

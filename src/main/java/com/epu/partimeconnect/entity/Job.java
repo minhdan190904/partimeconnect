@@ -56,7 +56,6 @@ public class Job extends BaseEntity {
 
     @Column(length = 100)
     private String workingTimeText;
-
     private Integer quantity;
 
     @Column(length = 100)

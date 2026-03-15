@@ -23,12 +23,9 @@
                             <span class="chip"><i class="bi bi-cash-stack"></i>
                                 <span th:text="${#numbers.formatInteger(job.salaryAmount, 0, 'COMMA')}"></span>
                                 <span th:switch="${job.salaryUnit}">
-                                    <span th:case="'PER_HOUR'">VNĐ/giờ</span>
-                                    <span th:case="'PER_SHIFT'">VNĐ/ca</span>
-                                    <span th:case="'PER_DAY'">VNĐ/ngày</span>
-                                    <span th:case="'PER_WEEK'">VNĐ/tuần</span>
-                                    <span th:case="'PER_MONTH'">VNĐ/tháng</span>
-                                    <span th:case="'PER_YEAR'">VNĐ/năm</span>
+        <span th:case="'GIO'">VNĐ/giờ</span>
+        <span th:case="'CA'">VNĐ/ca</span>
+        <span th:case="'THANG'">VNĐ/tháng</span>
                                     <span th:case="*">VNĐ</span>
                                 </span>
                             </span>
@@ -99,7 +96,8 @@
                     <div class="apply-side-card">
                         <h5 class="fw-bold mb-3">Ứng tuyển ngay</h5>
                         <div class="side-meta">
-                            <div><i class="bi bi-shop"></i> <span th:text="${job.employer.name}">Nhà tuyển dụng</span></div>
+                            <div><i class="bi bi-shop"></i> <span th:text="${job.employer.name}">Nhà tuyển dụng</span>
+                            </div>
                             <div><i class="bi bi-cash-stack"></i>
                                 <span th:text="${#numbers.formatInteger(job.salaryAmount, 0, 'COMMA')}"></span>
                                 <span th:switch="${job.salaryUnit}">
@@ -112,7 +110,8 @@
                                     <span th:case="*">VNĐ</span>
                                 </span>
                             </div>
-                            <div><i class="bi bi-clock-history"></i> <span th:text="${job.workingTimeText}">Ca</span></div>
+                            <div><i class="bi bi-clock-history"></i> <span th:text="${job.workingTimeText}">Ca</span>
+                            </div>
                             <div><i class="bi bi-geo-alt"></i> <span th:text="${job.province}">Địa điểm</span></div>
                         </div>
                         <a class="btn btn-gradient w-100 mt-3" th:href="@{'/jobs/' + ${job.id} + '/apply'}">
@@ -129,7 +128,8 @@
                     <div class="employer-card mt-3">
                         <h6 class="fw-bold">Thông tin nơi tuyển dụng</h6>
                         <div class="d-flex align-items-center gap-3 mt-3">
-                            <img th:src="${job.employer.imageUrl != null ? job.employer.imageUrl : '/images/default-employer.jpg'}" class="employer-avatar" alt="">
+                            <img th:src="${job.employer.imageUrl != null ? job.employer.imageUrl : '/images/default-employer.jpg'}"
+                                 class="employer-avatar" alt="">
                             <div>
                                 <div class="fw-semibold" th:text="${job.employer.name}">Tên nơi tuyển dụng</div>
                                 <div class="text-muted small" th:text="${job.employer.address}">Địa chỉ</div>

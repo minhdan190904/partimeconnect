@@ -40,8 +40,8 @@
                     </div>
                     <div class="col-lg-3">
                         <label class="form-label">Khu vực</label>
-                        <input type="text" name="province" class="form-control modern-input"
-                               th:value="${param.province}" placeholder="Ví dụ: Cầu giấy">
+                        <input type="text" name="area" class="form-control modern-input"
+                               th:value="${param.area}" placeholder="Ví dụ: Cầu giấy">
                     </div>
                     <div class="col-lg-2 d-flex align-items-end">
                         <button class="btn btn-gradient w-100">Tìm kiếm</button>
@@ -71,12 +71,9 @@
                             <span><i class="bi bi-cash"></i>
     <span th:text="${#numbers.formatInteger(job.salaryAmount, 0, 'COMMA')}"></span>
     <span th:switch="${job.salaryUnit}">
-        <span th:case="'PER_HOUR'">VNĐ/giờ</span>
-        <span th:case="'PER_SHIFT'">VNĐ/ca</span>
-        <span th:case="'PER_DAY'">VNĐ/ngày</span>
-        <span th:case="'PER_WEEK'">VNĐ/tuần</span>
-        <span th:case="'PER_MONTH'">VNĐ/tháng</span>
-        <span th:case="'PER_YEAR'">VNĐ/năm</span>
+        <span th:case="'GIO'">VNĐ/giờ</span>
+        <span th:case="'CA'">VNĐ/ca</span>
+        <span th:case="'THANG'">VNĐ/tháng</span>
         <span th:case="*">VNĐ</span>
     </span>
 </span>
