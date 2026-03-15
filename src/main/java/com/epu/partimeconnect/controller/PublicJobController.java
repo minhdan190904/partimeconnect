@@ -15,8 +15,10 @@ public class PublicJobController {
     private final JobService jobService;
 
     @GetMapping
-    public ApiResponse<List<Job>> getPublicJobs(@RequestParam(required = false) String jobGroup) {
-        return new ApiResponse<>(true, "Success", jobService.getPublicJobs(jobGroup));
+    public ApiResponse<List<Job>> getPublicJobs(@RequestParam(required = false) String jobGroup,
+                                                @RequestParam(required = false) String keyword,
+                                                @RequestParam(required = false) String area) {
+        return new ApiResponse<>(true, "Success", jobService.getPublicJobs(jobGroup, keyword, area));
     }
 
     @GetMapping("/{id}")

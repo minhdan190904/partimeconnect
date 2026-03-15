@@ -20,20 +20,28 @@
                 <div class="row g-3">
                     <div class="col-lg-4">
                         <label class="form-label">Từ khóa</label>
-                        <input type="text" name="keyword" class="form-control modern-input" th:value="${param.keyword}" placeholder="Tên công việc, cửa hàng...">
+                        <input type="text" name="keyword" class="form-control modern-input" th:value="${param.keyword}"
+                               placeholder="Tên công việc, cửa hàng...">
                     </div>
                     <div class="col-lg-3">
                         <label class="form-label">Loại công việc</label>
                         <select name="jobGroup" class="form-select modern-input">
                             <option value="">Tất cả</option>
-                            <option value="THEO_GIO" th:selected="${param.jobGroup != null and param.jobGroup[0] == 'THEO_GIO'}">Theo giờ</option>
-                            <option value="THEO_CA" th:selected="${param.jobGroup != null and param.jobGroup[0] == 'THEO_CA'}">Theo ca</option>
-                            <option value="CO_DINH" th:selected="${param.jobGroup != null and param.jobGroup[0] == 'CO_DINH'}">Cố định</option>
+                            <option value="THEO_GIO"
+                                    th:selected="${param.jobGroup != null and param.jobGroup[0] == 'THEO_GIO'}">Theo giờ
+                            </option>
+                            <option value="THEO_CA"
+                                    th:selected="${param.jobGroup != null and param.jobGroup[0] == 'THEO_CA'}">Theo ca
+                            </option>
+                            <option value="CO_DINH"
+                                    th:selected="${param.jobGroup != null and param.jobGroup[0] == 'CO_DINH'}">Cố định
+                            </option>
                         </select>
                     </div>
                     <div class="col-lg-3">
                         <label class="form-label">Khu vực</label>
-                        <input type="text" name="province" class="form-control modern-input" th:value="${param.province}" placeholder="Ví dụ: Hà Nội">
+                        <input type="text" name="province" class="form-control modern-input"
+                               th:value="${param.province}" placeholder="Ví dụ: Cầu giấy">
                     </div>
                     <div class="col-lg-2 d-flex align-items-end">
                         <button class="btn btn-gradient w-100">Tìm kiếm</button>
@@ -46,7 +54,8 @@
             <div class="col-lg-4 col-md-6" th:each="job : ${jobs}">
                 <div class="job-card job-card-full h-100">
                     <div class="job-card-image-wrap">
-                        <img th:src="${job.imageUrl != null ? job.imageUrl : '/images/default-job.jpg'}" class="job-card-image" alt="">
+                        <img th:src="${job.imageUrl != null ? job.imageUrl : '/images/default-job.jpg'}"
+                             class="job-card-image" alt="">
                         <span class="job-badge" th:switch="${job.jobGroup}">
                             <span th:case="'THEO_GIO'">Theo giờ</span>
                             <span th:case="'THEO_CA'">Theo ca</span>
@@ -74,7 +83,8 @@
                         </div>
                         <p class="job-desc flex-grow-1" th:text="${job.shortDescription}">Mô tả ngắn</p>
                         <div class="job-tags">
-                            <span class="chip"><i class="bi bi-clock"></i> <span th:text="${job.workingTimeText}">Ca tối</span></span>
+                            <span class="chip"><i class="bi bi-clock"></i> <span
+                                    th:text="${job.workingTimeText}">Ca tối</span></span>
                             <span class="chip"><i class="bi bi-people"></i> <span th:text="${job.quantity}">3</span> người</span>
                         </div>
                         <div class="job-card-actions mt-3">

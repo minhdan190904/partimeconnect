@@ -21,17 +21,20 @@ public class WebController {
 
     @GetMapping("/")
     public String homePage(Model model) {
-        model.addAttribute("jobsTheoGio", jobService.getPublicJobs("THEO_GIO"));
-        model.addAttribute("jobsTheoCa", jobService.getPublicJobs("THEO_CA"));
-        model.addAttribute("jobsCoDinh", jobService.getPublicJobs("CO_DINH"));
+        model.addAttribute("jobsTheoGio", jobService.getPublicJobs("THEO_GIO", null, null));
+        model.addAttribute("jobsTheoCa", jobService.getPublicJobs("THEO_CA", null, null));
+        model.addAttribute("jobsCoDinh", jobService.getPublicJobs("CO_DINH", null, null));
         model.addAttribute("totalJobs", jobService.getAll().size());
         model.addAttribute("totalEmployers", employerService.getAll().size());
         return "public/home";
     }
 
     @GetMapping("/jobs")
-    public String jobsPage(@RequestParam(required = false) String jobGroup, Model model) {
-        model.addAttribute("jobs", jobService.getPublicJobs(jobGroup));
+    public String jobsPage(@RequestParam(required = false) String jobGroup,
+                           @RequestParam(required = false) String keyword,
+                           @RequestParam(required = false) String area,
+                           Model model) {
+        model.addAttribute("jobs", jobService.getPublicJobs(jobGroup, keyword, area));
         return "public/jobs";
     }
 

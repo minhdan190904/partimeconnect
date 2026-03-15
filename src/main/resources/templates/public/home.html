@@ -76,6 +76,62 @@
     </div>
 </section>
 
+<section class="founders-section">
+    <div class="container">
+        <div class="founders-card">
+            <div class="founders-heading text-center">
+                <span class="founders-badge">Nhà sáng lập</span>
+                <h2 class="founders-title">Đội ngũ tạo nên Partime Connect EPU</h2>
+                <p class="founders-intro">
+                    Chào mọi người, đây là dự án của 3 đứa mình được thực hiện từ khi còn là sinh viên năm nhất.
+                    Dự án ra đời với mong muốn hỗ trợ các bạn sinh viên dễ dàng tìm kiếm những công việc phù hợp,
+                    an toàn và uy tín. Thông qua nền tảng này, chúng mình hy vọng có thể kết nối sinh viên với các
+                    cơ hội việc làm part-time, thực tập và việc làm thời vụ, giúp các bạn vừa có thêm thu nhập,
+                    vừa tích lũy kinh nghiệm và phát triển kỹ năng cho tương lai.
+                </p>
+            </div>
+
+            <div class="row g-4 justify-content-center">
+                <div class="col-lg-4 col-md-6">
+                    <div class="founder-item">
+                        <div class="founder-image-wrap">
+                            <img src="/images/creator_1.jpg" alt="Trần Đình Đức" class="founder-image">
+                        </div>
+                        <div class="founder-content">
+                            <h3 class="founder-name">Trần Đình Đức</h3>
+                            <div class="founder-role">Đồng sáng lập</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="founder-item">
+                        <div class="founder-image-wrap">
+                            <img src="/images/creator_2.jpg" alt="Nguyễn Thùy Linh" class="founder-image">
+                        </div>
+                        <div class="founder-content">
+                            <h3 class="founder-name">Nguyễn Thùy Linh</h3>
+                            <div class="founder-role">Đồng sáng lập</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="founder-item">
+                        <div class="founder-image-wrap">
+                            <img src="/images/creator_3.jpg" alt="Lê Thị Hải Yến" class="founder-image">
+                        </div>
+                        <div class="founder-content">
+                            <h3 class="founder-name">Lê Thị Hải Yến</h3>
+                            <div class="founder-role">Đồng sáng lập</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <section class="section-block">
     <div class="container">
         <div class="section-header">
@@ -97,7 +153,7 @@
                         <div class="job-company" th:text="${job.employer.name}">Nhà tuyển dụng</div>
                         <h5 class="job-title" th:text="${job.title}">Tên công việc</h5>
                         <div class="job-meta">
-                            <span><i class="bi bi-geo-alt"></i> <span th:text="${job.district} + ', ' + ${job.province}">Địa điểm</span></span>
+                            <span><i class="bi bi-geo-alt"></i> <span th:text="${job.workAddress}">Địa điểm</span></span>
                             <span><i class="bi bi-cash-stack"></i>
                                 <span th:text="${#numbers.formatInteger(job.salaryAmount, 0, 'COMMA')}"></span>
                                 <span th:switch="${job.salaryUnit}">

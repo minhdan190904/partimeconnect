@@ -25,7 +25,18 @@ public class JobService {
         return jobRepository.findAll();
     }
 
-    public List<Job> getPublicJobs(String jobGroup) {
+    public List<Job> getPublicJobs(String jobGroup, String keyword, String province) {
+        if (province != null && !province.isBlank()) {
+            // Chỉ tìm kiếm trên workAddress
+            String area = province.trim();
+            return jobRepository.searchByArea(area);
+        }
+        if (keyword != null && !keyword.isBlank()) {
+            if (jobGroup != null && !jobGroup.isBlank()) {
+                return jobRepository.searchPublicJobsWithGroup(keyword, jobGroup);
+            }
+            return jobRepository.searchPublicJobs(keyword);
+        }
         if (jobGroup != null && !jobGroup.isBlank()) {
             return jobRepository.findByPublishedTrueAndStatusAndJobGroupOrderByCreatedAtDesc("OPEN", jobGroup);
         }
